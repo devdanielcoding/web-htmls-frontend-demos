@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontend Demos & Showroom — devdanielcoding</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header>
+      <div>
+        <h1>Showroom Frontend</h1>
+        <p class="sub">Catálogo de plantillas, maquetas y experimentos con frameworks modernos.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="https://devdanielcoding.github.io/">← Volver a Inicio</a>
+        <a class="btn btn-primary" href="https://github.com/devdanielcoding/web-htmls-frontend-demos" target="_blank" rel="noreferrer">GitHub Repo ↗</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h2 class="hero-title">Modelos y Diseños Web en Vivo</h2>
+      <p class="hero-text">
+        Explora maquetas interactivas desarrolladas en React, Astro, Vue, Tailwind CSS y animaciones 3D.
+      </p>
+      <div class="hero-cta">
+        <input class="search" id="search" placeholder="Buscar maquetas (ej. React, Landing, Astro, 3D, Dashboard)..." />
+      </div>
+    </section>
+
+    <!-- Filtros de Categoría -->
+    <div class="filters">
+      <button class="filter-btn active" data-category="all">Todos</button>
+      <button class="filter-btn" data-category="landings">Landings & Agencias</button>
+      <button class="filter-btn" data-category="dashboards">Dashboards & Herramientas</button>
+      <button class="filter-btn" data-category="ecommerce">E-commerce</button>
+      <button class="filter-btn" data-category="3d">Experimentos 3D</button>
+    </div>
+
+    <!-- Demos Grid -->
+    <main class="section-block">
+      <div class="section-head">
+        <h2>Catálogo de Maquetas</h2>
+      </div>
+      <div class="grid" id="demos-grid"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>© <span id="year"></span> devdanielcoding — Showroom Frontend</span>
+      <span>Desarrollo Web & Maquetas Modernas</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script type="module" src="./scripts.js"></script>
+</body>
+</html>
