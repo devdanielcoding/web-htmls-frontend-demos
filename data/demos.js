@@ -15,15 +15,37 @@ export const DEMOS = [
     id: 'D2',
     title: 'Aether 3D Landing',
     desc: 'Diseño futurista de alto impacto con elementos 3D interactivos y canvas.',
-    path: '#',
+    path: './aether3d-landing/',
     emoji: '🪐',
     framework: 'Three.js + HTML/JS',
     category: '3d',
     tags: ['3D', 'WebGL', 'Landing', 'Futurista'],
-    status: 'Maqueta'
+    status: 'Listo'
   },
   {
     id: 'D3',
+    title: 'Webs con Imagen 3D',
+    desc: 'Experimento interactivo de efectos 3D y render sobre canvas.',
+    path: './webs-con-img-3d/',
+    emoji: '🖼️',
+    framework: 'Vite + Canvas 3D',
+    category: '3d',
+    tags: ['3D', 'Canvas', 'Interactive'],
+    status: 'Listo'
+  },
+  {
+    id: 'D4',
+    title: 'Proyecto Réplica Web JSON',
+    desc: 'Réplica frontend modular y estructurada con tipado estricto.',
+    path: './proyecto-replica-web-json/',
+    emoji: '⚡',
+    framework: 'React + TypeScript',
+    category: 'landings',
+    tags: ['React', 'TypeScript', 'Modular', 'JSON'],
+    status: 'Listo'
+  },
+  {
+    id: 'D5',
     title: 'Dashboard Analítico LATAM',
     desc: 'Panel de control con métricas de ventas, gráficos interactivos y tablas dinámicas.',
     path: '#',
@@ -34,7 +56,7 @@ export const DEMOS = [
     status: 'Maqueta'
   },
   {
-    id: 'D4',
+    id: 'D6',
     title: 'Astro Agency Minimal',
     desc: 'Plantilla de agencia ultrarrápida, optimizada para SEO y conversión de clientes.',
     path: '#',
@@ -45,7 +67,7 @@ export const DEMOS = [
     status: 'Maqueta'
   },
   {
-    id: 'D5',
+    id: 'D7',
     title: 'E-commerce Storefront',
     desc: 'Catálogo de productos con carrito interactivo, vista rápida y filtros por categoría.',
     path: '#',
@@ -53,17 +75,6 @@ export const DEMOS = [
     framework: 'Vite + React',
     category: 'ecommerce',
     tags: ['React', 'E-commerce', 'Store', 'UI'],
-    status: 'Maqueta'
-  },
-  {
-    id: 'D6',
-    title: 'WebPulse SEO Auditor',
-    desc: 'Herramienta de diagnóstico visual de rendimiento web, accesibilidad y buenas prácticas.',
-    path: '#',
-    emoji: '⚡',
-    framework: 'Vanilla JS + CSS Modules',
-    category: 'dashboards',
-    tags: ['SEO', 'Tool', 'Performance'],
     status: 'Maqueta'
   }
 ];
