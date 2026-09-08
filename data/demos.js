@@ -47,13 +47,13 @@ export const DEMOS = [
   {
     id: 'D5',
     title: 'Dashboard Analítico LATAM',
-    desc: 'Panel de control con métricas de ventas, gráficos interactivos y tablas dinámicas.',
-    path: '#',
+    desc: 'Panel de control con mapa SVG interactivo, filtros y métricas demográficas de LATAM.',
+    path: './dashboard-latam/',
     emoji: '📊',
-    framework: 'Vue 3 + Chart.js',
+    framework: 'HTML5 + SVG + Vanilla JS',
     category: 'dashboards',
-    tags: ['Vue', 'Dashboard', 'Analytics', 'Charts'],
-    status: 'Maqueta'
+    tags: ['Dashboard', 'Mapas', 'SVG', 'Analytics', 'KPIs'],
+    status: 'Listo'
   },
   {
     id: 'D6',
