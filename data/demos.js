@@ -57,6 +57,17 @@ export const DEMOS = [
   },
   {
     id: 'D6',
+    title: 'Atelier Cinemático // Arte & Óleo',
+    desc: 'Experiencia inmersiva de scrollytelling en Canvas 2D interactivo con catálogo editorial y ficha de conversión.',
+    path: './cinematic-web-painting/',
+    emoji: '🎨',
+    framework: 'Astro 5 + Canvas 2D + Lenis',
+    category: 'landings',
+    tags: ['Scrollytelling', 'Canvas 2D', 'Astro', 'Lenis', 'Brutalismo', 'Arte'],
+    status: 'Listo'
+  },
+  {
+    id: 'D7',
     title: 'Astro Agency Minimal',
     desc: 'Plantilla de agencia ultrarrápida, optimizada para SEO y conversión de clientes.',
     path: '#',
@@ -67,7 +78,7 @@ export const DEMOS = [
     status: 'Maqueta'
   },
   {
-    id: 'D7',
+    id: 'D8',
     title: 'E-commerce Storefront',
     desc: 'Catálogo de productos con carrito interactivo, vista rápida y filtros por categoría.',
     path: '#',
