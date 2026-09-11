@@ -68,24 +68,57 @@ export const DEMOS = [
   },
   {
     id: 'D7',
-    title: 'Astro Agency Minimal',
-    desc: 'Plantilla de agencia ultrarrápida, optimizada para SEO y conversión de clientes.',
-    path: '#',
-    emoji: '🚀',
-    framework: 'Astro 5 + Tailwind',
+    title: 'Montessori Home // Pizarras Kids',
+    desc: 'Scrollytelling pedagógico de pizarras acrílicas transparentes y borrables para aprendizaje en casa.',
+    path: './01-pizarras-kids-learning/',
+    emoji: '🖍️',
+    framework: 'Vite + TS + Lenis + GSAP',
     category: 'landings',
-    tags: ['Astro', 'SSG', 'Agencia', 'SEO'],
-    status: 'Maqueta'
+    tags: ['Scrollytelling', 'Montessori', 'Lenis', 'GSAP', 'Canvas 2D', 'Educación'],
+    status: 'Listo'
   },
   {
     id: 'D8',
-    title: 'E-commerce Storefront',
-    desc: 'Catálogo de productos con carrito interactivo, vista rápida y filtros por categoría.',
-    path: '#',
-    emoji: '🛍️',
-    framework: 'Vite + React',
-    category: 'ecommerce',
-    tags: ['React', 'E-commerce', 'Store', 'UI'],
-    status: 'Maqueta'
+    title: 'SilverVolt® // Baterías Senior 2.8 kg',
+    desc: 'Scrollytelling de movilidad eléctrica senior con baterías ligeras de 2.8 kg y conector magnético.',
+    path: './silver-volt-energy/',
+    emoji: '🔋',
+    framework: 'Vite + TS + Lenis + GSAP',
+    category: 'landings',
+    tags: ['Scrollytelling', 'Movilidad', 'Lenis', 'GSAP', 'Canvas 2D', 'Hardware'],
+    status: 'Listo'
+  },
+  {
+    id: 'D9',
+    title: 'EXUS Customs // Series S Titanio CNC',
+    desc: 'Scrollytelling bespoke de Xbox Series S con chasis modificado en titanio y aluminio aeronáutico.',
+    path: './series-s-craft-studio/',
+    emoji: '🎮',
+    framework: 'Vite + TS + Lenis + GSAP',
+    category: 'landings',
+    tags: ['Scrollytelling', 'Gaming', 'Lenis', 'GSAP', 'Canvas 2D', 'Titanio'],
+    status: 'Listo'
+  },
+  {
+    id: 'D10',
+    title: 'Thalassa Pacific Expedition // ONG Marina',
+    desc: 'Scrollytelling inmersivo de expedición y monitoreo biológico en el Pacífico Ecuatorial.',
+    path: './thalassa-ocean-guardians/',
+    emoji: '🐋',
+    framework: 'Vite + TS + Lenis + GSAP',
+    category: 'landings',
+    tags: ['Scrollytelling', 'ONG', 'Lenis', 'GSAP', 'Canvas 2D', 'Conservación'],
+    status: 'Listo'
+  },
+  {
+    id: 'D11',
+    title: 'Austral Tech // Laptops Patagonia',
+    desc: 'Scrollytelling de hardware educativo robusto para escuelas rurales y climas extremos del sur.',
+    path: './austral-tech/',
+    emoji: '💻',
+    framework: 'Vite + TS + Lenis + GSAP',
+    category: 'landings',
+    tags: ['Scrollytelling', 'Hardware', 'Lenis', 'GSAP', 'Canvas 2D', 'Patagonia'],
+    status: 'Listo'
   }
 ];
