@@ -1164,14 +1164,7 @@
     
     function onSelectionChanged() {
       renderChips();
-      
-      // Auto-switch to level 1 if any selected country has level 1
-      const hasLvl1 = selectedCountries.some(c => level1Data.some(d => cleanString(d.country) === cleanString(c)));
-      if (hasLvl1 && activeLevel === 0 && selectedCountries.length > 0) {
-        switchLevel(1);
-      } else {
-        renderDashboard();
-      }
+      renderDashboard();
       
       if (selectedCountries.length > 0) {
         zoomToSelection();
