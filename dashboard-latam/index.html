@@ -1564,8 +1564,20 @@
     }
 
     function resetMapZoom() {
+      let selectionCleared = false;
+      if (selectedCountries.length > 0) {
+        selectedCountries = [];
+        selectionCleared = true;
+      }
+
       if (svg && zoom) {
         svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
+      }
+      
+      if (selectionCleared) {
+        renderChips();
+        renderDashboard();
+        updateMapSelection();
       }
     }
 
