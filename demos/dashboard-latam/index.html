@@ -552,8 +552,16 @@
       overflow: hidden;
       cursor: grab;
       position: relative;
+      touch-action: none;
+      -webkit-touch-callout: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
     #map-viewport:active { cursor: grabbing; }
+    #map-viewport svg {
+      touch-action: none;
+      user-select: none;
+    }
 
     /* Polígonos */
     .map-feature {
@@ -666,6 +674,232 @@
     .tooltip-val { font-weight: 600; color: var(--on-dark); font-variant-numeric: tabular-nums; }
     .tooltip-val.is-good { color: #4fd1ad; }
     .tooltip-val.is-muted { color: var(--on-dark-muted); }
+
+    /* ==============================================================
+       PANEL / DRAWER DE DETALLES MÓVIL (FUERA DEL LIENZO PRINCIPAL)
+       ============================================================== */
+    .mobile-detail-drawer {
+      display: none;
+      position: absolute;
+      z-index: 100;
+      background: rgba(14, 18, 48, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: var(--on-dark);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 16px 36px -8px rgba(10, 14, 38, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      padding: 14px 16px;
+      box-sizing: border-box;
+      pointer-events: auto;
+    }
+    .mobile-detail-drawer.is-open {
+      display: flex;
+      flex-direction: column;
+      animation: drawerSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes drawerSlideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .drawer-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .drawer-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(34, 211, 238, 0.15);
+      color: var(--accent-active);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 211, 238, 0.3);
+    }
+    .drawer-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .drawer-close-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: none;
+      color: #ffffff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+      transition: background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .drawer-close-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+    .drawer-close-btn:active {
+      transform: scale(0.95);
+    }
+    .drawer-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .drawer-metric-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .drawer-metric-label {
+      font-size: 10px;
+      color: var(--on-dark-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .drawer-metric-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 3px;
+      font-variant-numeric: tabular-nums;
+    }
+    .drawer-metric-sub {
+      font-size: 10px;
+      color: var(--on-dark-muted);
+      margin-top: 2px;
+    }
+    .drawer-footer {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-drawer-action {
+      flex: 1;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-drawer-action:active { transform: scale(0.98); }
+    .btn-drawer-action.primary {
+      background: var(--accent-active);
+      color: #0b0f2a;
+      box-shadow: 0 2px 10px rgba(34, 211, 238, 0.35);
+    }
+    .btn-drawer-action.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Lista y detalle de divisiones en Drawer */
+    .drawer-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-active);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 10px 0 6px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drawer-divisions-scroll {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 4px;
+      margin-bottom: 10px;
+    }
+    .drawer-divisions-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .drawer-divisions-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+    }
+    .drawer-division-chip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .drawer-division-chip:hover, .drawer-division-chip:active {
+      background: rgba(34, 211, 238, 0.14);
+      border-color: rgba(34, 211, 238, 0.35);
+      transform: translateX(2px);
+    }
+    .div-chip-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .div-chip-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .div-chip-type {
+      font-size: 9px;
+      color: var(--on-dark-muted);
+    }
+    .div-chip-right {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-active);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Etiquetas de texto de divisiones sobre el mapa */
+    .division-label {
+      pointer-events: none;
+      user-select: none;
+      transition: fill 0.18s ease, stroke 0.18s ease, font-size 0.15s ease;
+    }
+    .division-label.is-active {
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95));
+    }
 
     /* ==============================================================
        TABLA
@@ -819,13 +1053,67 @@
     }
 
     @media (max-width: 800px) {
-      .top-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .top-header { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 18px; }
       .header-context-meta { text-align: left; }
-      .filter-bar { flex-direction: column; align-items: flex-start; }
+      .filter-bar { flex-direction: column; align-items: flex-start; padding: 12px 18px; }
       .semaphore-badges { width: 100%; justify-content: flex-start; }
       #map-viewport { height: 420px; }
       .legend-swatches span { width: 24px; }
     }
+
+    /* MODO TOUCH / MÓVIL PORTRAIT */
+    @media (max-width: 768px) {
+      .custom-map-tooltip {
+        display: none !important;
+      }
+      .mobile-detail-drawer {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        max-height: 54%;
+        overflow-y: auto;
+      }
+      .map-legend {
+        left: 10px;
+        bottom: 10px;
+        padding: 6px 10px;
+        font-size: 10px;
+      }
+      .legend-swatches span { width: 18px; height: 8px; }
+    }
+
+    /* MODO MÓVIL HORIZONTAL (LANDSCAPE / BAJA ALTURA) */
+    @media (max-width: 950px) and (orientation: landscape), (max-height: 520px) and (max-width: 950px) {
+      .custom-map-tooltip {
+        display: none !important;
+      }
+      #map-viewport {
+        height: 360px;
+      }
+      .mobile-detail-drawer {
+        top: 10px;
+        bottom: 10px;
+        right: 10px;
+        left: auto;
+        width: 300px;
+        max-width: 48%;
+        max-height: calc(100% - 20px);
+        overflow-y: auto;
+      }
+      .drawer-body {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .map-legend {
+        bottom: 8px;
+        left: 8px;
+        padding: 5px 8px;
+        font-size: 9px;
+      }
+      .legend-swatches span { width: 14px; height: 7px; }
+      .legend-ticks span { font-size: 9px; }
+    }
+
 
   </style>
 </head>
@@ -985,6 +1273,23 @@
         <div class="map-stage">
           <div id="map-viewport"></div>
           <div id="map-legend" class="map-legend" aria-live="polite"></div>
+
+          <!-- PANEL / DRAWER MÓVIL DESACOPLADO DEL MAPA -->
+          <div id="mobile-detail-drawer" class="mobile-detail-drawer" aria-hidden="true">
+            <div class="drawer-header">
+              <div class="drawer-header-left">
+                <span class="drawer-badge" id="drawer-badge">Territorio</span>
+                <h4 class="drawer-title" id="drawer-title">Selección</h4>
+              </div>
+              <button class="drawer-close-btn" id="drawer-close-btn" onclick="closeMobileDrawer()" aria-label="Cerrar detalle">✕</button>
+            </div>
+            <div class="drawer-body" id="drawer-body">
+              <!-- Métricas inyectadas dinámicamente -->
+            </div>
+            <div class="drawer-footer" id="drawer-footer">
+              <!-- Botones de acción dinámicos -->
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1068,7 +1373,11 @@
     let selectedCountries = [];
     let activeMetric = "population"; // 'population' | 'gdpUSD' | 'gdpPerCapita'
 
-    let svg, g, projection, path, zoom;
+    const MAP_WIDTH = 960;
+    const MAP_HEIGHT = 540;
+
+    let activeDivisionName = null;
+    let svg, g, gFeatures, gLabels, projection, path, zoom;
 
     const METRIC_LABELS = {
       population: "Población",
@@ -1163,11 +1472,15 @@
     }
     
     function onSelectionChanged() {
+      activeDivisionName = null;
       renderChips();
       renderDashboard();
       
       if (selectedCountries.length > 0) {
         zoomToSelection();
+        if (activeLevel === 1 && selectedCountries.length === 1 && isMobileOrTouch()) {
+          showCountryOverviewInDrawer(selectedCountries[0]);
+        }
       } else {
         resetMapZoom();
       }
@@ -1190,6 +1503,8 @@
 
     function switchLevel(lvl) {
       activeLevel = lvl;
+      hideTooltip();
+      closeMobileDrawer();
 
       for (let i = 0; i <= 3; i++) {
         const btn = document.getElementById(`tab-lvl-${i}`);
@@ -1352,27 +1667,63 @@
     function initMap() {
       const container = document.getElementById("map-viewport");
       container.innerHTML = "";
-      const width = container.clientWidth || 960;
-      const height = container.clientHeight || 520;
 
       svg = d3.select("#map-viewport").append("svg")
         .attr("width", "100%")
         .attr("height", "100%")
-        .attr("viewBox", `0 0 ${width} ${height}`);
+        .attr("viewBox", `0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
+
+      // Fondo interactivo para capturar clics en el océano / espacio vacío
+      svg.append("rect")
+        .attr("class", "map-ocean-bg")
+        .attr("width", MAP_WIDTH)
+        .attr("height", MAP_HEIGHT)
+        .attr("fill", "transparent")
+        .style("pointer-events", "all")
+        .on("click", handleOceanClick);
 
       g = svg.append("g");
+      gFeatures = g.append("g").attr("class", "map-features-layer");
+      gLabels = g.append("g").attr("class", "map-division-labels").style("pointer-events", "none");
 
       projection = d3.geoNaturalEarth1()
-        .scale(width / 6.2)
-        .translate([width / 2, height / 2]);
+        .scale(MAP_WIDTH / 6.2)
+        .translate([MAP_WIDTH / 2, MAP_HEIGHT / 2]);
 
       path = d3.geoPath().projection(projection);
 
+      // Límites de navegación: libertad de movimiento fluido y sujeción rígida a los polos
+      const boundsMarginX = MAP_WIDTH * 0.20;
+      const boundsMarginY = MAP_HEIGHT * 0.06;
+
       zoom = d3.zoom()
         .scaleExtent([1, 40])
-        .on("zoom", (event) => g.attr("transform", event.transform));
+        .extent([[0, 0], [MAP_WIDTH, MAP_HEIGHT]])
+        .translateExtent([
+          [-boundsMarginX, -boundsMarginY],
+          [MAP_WIDTH + boundsMarginX, MAP_HEIGHT + boundsMarginY]
+        ])
+        .on("zoom", (event) => {
+          g.attr("transform", event.transform);
+          renderDivisionLabels(event.transform);
+        });
 
       svg.call(zoom);
+
+      // Clic directo en SVG para garantizar que cualquier toque en vacío limpie el tooltip y drawer
+      svg.on("click", (event) => {
+        if (!event.target.classList || !event.target.classList.contains("map-feature")) {
+          handleOceanClick();
+        }
+      });
+    }
+
+    function handleOceanClick() {
+      activeDivisionName = null;
+      hideTooltip();
+      closeMobileDrawer();
+      renderDivisionLabels(svg ? d3.zoomTransform(svg.node()) : null);
     }
 
     function renderMap() {
@@ -1423,7 +1774,7 @@
         .domain(visibleValues.length ? visibleValues : [0, maxVal || 1])
         .range(MAP_RAMP);
 
-      const paths = g.selectAll(".map-feature")
+      const paths = gFeatures.selectAll(".map-feature")
         .data(featuresToRender, d => {
           if (activeLevel === 1 && d.properties.isLevel1) {
             return d.properties.country + "|" + d.properties.name;
@@ -1469,15 +1820,131 @@
 
 
       updateMapSelection();
+      renderDivisionLabels(svg ? d3.zoomTransform(svg.node()) : null);
       renderLegend(colorScale, visibleValues);
     }
 
     
     function updateMapSelection() {
-      if (!g) return;
-      g.selectAll(".map-feature")
+      if (!gFeatures) return;
+      gFeatures.selectAll(".map-feature")
         .classed("is-selected", d => selectedCountries.length > 0 && selectedCountries.includes(d.properties.country || d.properties.name));
-      g.selectAll(".map-feature.is-selected").raise();
+      gFeatures.selectAll(".map-feature.is-selected").raise();
+    }
+
+    function renderDivisionLabels(currentTransform) {
+      if (!gLabels) return;
+
+      if (activeLevel !== 1 || selectedCountries.length === 0) {
+        gLabels.selectAll("*").remove();
+        return;
+      }
+
+      const k = (currentTransform && currentTransform.k) || (svg ? d3.zoomTransform(svg.node()).k : 1);
+
+      // Escala tipográfica adaptativa y nítida en pantalla (~10.5px)
+      const targetScreenPx = 10.5;
+      const fontSize = Math.max(0.6, Math.min(11, targetScreenPx / k));
+      const strokeWidth = Math.max(0.2, Math.min(3, 2.4 / k));
+
+      // Filtrar divisiones de los países seleccionados
+      const countryDivFeatures = worldLvl1Geo.features.filter(f => 
+        f.properties.isLevel1 && selectedCountries.includes(f.properties.country)
+      );
+
+      // Precalcular centroides, áreas y concordancia con división activa
+      const candidates = [];
+      for (const feat of countryDivFeatures) {
+        const c = path.centroid(feat);
+        if (isNaN(c[0]) || isNaN(c[1])) continue;
+        const area = Math.abs(path.area(feat)) || 1;
+        const isCurrentActive = Boolean(activeDivisionName && (cleanString(feat.properties.name) === cleanString(activeDivisionName)));
+        candidates.push({
+          feature: feat,
+          name: feat.properties.name,
+          country: feat.properties.country,
+          cx: c[0],
+          cy: c[1],
+          area: area,
+          isActive: isCurrentActive
+        });
+      }
+
+      // Prioridad:
+      // 1) La división activa tiene prioridad máxima absoluta (se incluye SIEMPRE sin descartarse).
+      // 2) El resto se ordena por área descendente (las provincias grandes se rotulan primero).
+      candidates.sort((a, b) => {
+        if (a.isActive && !b.isActive) return -1;
+        if (!a.isActive && b.isActive) return 1;
+        return b.area - a.area;
+      });
+
+      // Detección voraz de colisiones con Bounding Boxes en espacio SVG
+      const placedBoxes = [];
+      const visibleData = [];
+
+      for (const item of candidates) {
+        const nameLen = item.name.length;
+        // Bounding box en coordenadas SVG (escaladas con 1/k)
+        const halfW = ((nameLen * 2.8) / k) + (2.5 / k);
+        const halfH = (5.5 / k) + (1.5 / k);
+
+        const box = {
+          x1: item.cx - halfW,
+          y1: item.cy - halfH,
+          x2: item.cx + halfW,
+          y2: item.cy + halfH
+        };
+
+        if (item.isActive) {
+          placedBoxes.push(box);
+          visibleData.push(item);
+        } else {
+          let collision = false;
+          for (const placed of placedBoxes) {
+            const overlap = !(box.x2 < placed.x1 || box.x1 > placed.x2 || box.y2 < placed.y1 || box.y1 > placed.y2);
+            if (overlap) {
+              collision = true;
+              break;
+            }
+          }
+          if (!collision) {
+            placedBoxes.push(box);
+            visibleData.push(item);
+          }
+        }
+      }
+
+      // Data join en D3
+      const labels = gLabels.selectAll(".division-label")
+        .data(visibleData, d => d.country + "|" + d.name);
+
+      labels.exit().remove();
+
+      const enterLabels = labels.enter()
+        .append("text")
+        .attr("class", "division-label")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .style("paint-order", "stroke fill")
+        .style("font-family", "Inter, -apple-system, BlinkMacSystemFont, sans-serif")
+        .style("pointer-events", "none");
+
+      labels.merge(enterLabels)
+        .attr("x", d => d.cx)
+        .attr("y", d => d.cy)
+        .attr("class", d => d.isActive ? "division-label is-active" : "division-label")
+        .style("font-size", d => (d.isActive ? (fontSize * 1.15) : fontSize) + "px")
+        .style("font-weight", d => d.isActive ? "800" : "700")
+        .style("stroke-width", d => (d.isActive ? (strokeWidth * 1.35) : strokeWidth) + "px")
+        .style("stroke", d => d.isActive ? "rgba(5, 7, 20, 0.98)" : "rgba(10, 14, 38, 0.92)")
+        .style("fill", d => d.isActive ? "#ffe066" : "#ffffff")
+        .text(d => d.name)
+        .each(function(d) {
+          if (d.isActive) {
+            d3.select(this).raise();
+          }
+        });
     }
 
     function renderLegend(colorScale, values) {
@@ -1506,18 +1973,49 @@
     }
 
     
+    function isMobileOrTouch() {
+      return window.innerWidth <= 768 || (window.matchMedia && (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 768px)").matches || window.matchMedia("(max-height: 520px)").matches));
+    }
+
     function handleMapClick(event, d) {
       const cName = d.properties.country || d.properties.name;
+      if (activeLevel === 1 && d.properties.isLevel1) {
+        activeDivisionName = d.properties.name;
+      } else {
+        activeDivisionName = null;
+      }
+
       if (event.shiftKey) {
         toggleCountrySelection(cName);
       } else {
-        selectedCountries = [cName];
-        onSelectionChanged();
+        if (activeLevel === 0) {
+          selectedCountries = [cName];
+          onSelectionChanged();
+        } else {
+          // En Nivel 1: si el país de la división no estaba seleccionado, seleccionarlo
+          if (!selectedCountries.includes(cName)) {
+            selectedCountries = [cName];
+            onSelectionChanged();
+          } else {
+            renderDivisionLabels(svg ? d3.zoomTransform(svg.node()) : null);
+          }
+        }
+      }
+
+      // En móvil/touch, o al hacer clic, desplegar el drawer de detalles desacoplado del mapa
+      if (isMobileOrTouch()) {
+        hideTooltip();
+        showMobileDrawer(d);
       }
     }
 
 
     function handleMapMouseMove(event, d) {
+      if (isMobileOrTouch()) {
+        hideTooltip();
+        return;
+      }
+
       const tooltip = document.getElementById("map-tooltip");
       tooltip.style.display = "block";
       tooltip.style.left = (event.clientX + 16) + "px";
@@ -1560,10 +2058,252 @@
     }
 
     function hideTooltip() {
-      document.getElementById("map-tooltip").style.display = "none";
+      const tooltip = document.getElementById("map-tooltip");
+      if (tooltip) tooltip.style.display = "none";
     }
 
+    function closeMobileDrawer() {
+      const drawer = document.getElementById("mobile-detail-drawer");
+      if (drawer) {
+        drawer.classList.remove("is-open");
+        drawer.setAttribute("aria-hidden", "true");
+      }
+    }
+
+    function showMobileDrawer(d) {
+      const drawer = document.getElementById("mobile-detail-drawer");
+      if (!drawer) return;
+
+      const badgeEl = document.getElementById("drawer-badge");
+      const titleEl = document.getElementById("drawer-title");
+      const bodyEl = document.getElementById("drawer-body");
+      const footerEl = document.getElementById("drawer-footer");
+
+      if (activeLevel === 1 && d.properties.isLevel1) {
+        const divName = d.properties.name;
+        const countryName = d.properties.country;
+        activeDivisionName = divName;
+        renderDivisionLabels(svg ? d3.zoomTransform(svg.node()) : null);
+        const divType = d.properties.type || "División";
+        const match = level1Data.find(r => cleanString(r.country) === cleanString(countryName) && cleanString(r.divisionName) === cleanString(divName));
+
+        badgeEl.textContent = `${divType} · ${countryName}`;
+        titleEl.textContent = divName;
+
+        if (match) {
+          const countryDivs = level1Data.filter(r => cleanString(r.country) === cleanString(countryName));
+          const countryPop = countryDivs.reduce((a, b) => a + b.population, 0);
+          const countryGDP = countryDivs.reduce((a, b) => a + b.gdpUSD, 0);
+          const natGDPpc = countryPop > 0 ? Math.round(countryGDP / countryPop) : 0;
+          const popShare = countryPop > 0 ? ((match.population / countryPop) * 100).toFixed(1) + "% del total nac." : "";
+          const gdpShare = countryGDP > 0 ? ((match.gdpUSD / countryGDP) * 100).toFixed(1) + "% del total nac." : "";
+
+          let semaforoBadge = "";
+          if (natGDPpc > 0) {
+            const delta = ((match.gdpPerCapita - natGDPpc) / natGDPpc) * 100;
+            const cls = delta >= 0 ? "good" : (delta >= -10 ? "warn" : "bad");
+            const sign = delta >= 0 ? "+" : "";
+            semaforoBadge = `<span class="badge-pill sm ${cls}"><span class="dot"></span>${sign}${delta.toFixed(1)}% vs media</span>`;
+          }
+
+          bodyEl.innerHTML = `
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">Población</span>
+              <span class="drawer-metric-val">${formatNumber(match.population)}</span>
+              ${popShare ? `<span class="drawer-metric-sub">${popShare}</span>` : ""}
+            </div>
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">PBI Nominal</span>
+              <span class="drawer-metric-val">${formatUSD(match.gdpUSD)}</span>
+              ${gdpShare ? `<span class="drawer-metric-sub">${gdpShare}</span>` : ""}
+            </div>
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">PBI Per Cápita</span>
+              <span class="drawer-metric-val">$${formatNumber(match.gdpPerCapita)}</span>
+              <span class="drawer-metric-sub">${semaforoBadge || "Promedio local"}</span>
+            </div>
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">Estado</span>
+              <span class="drawer-metric-val" style="font-size:11px; color:#4fd1ad;">
+                ${match.simulated ? "Simulado" : "Datos Oficiales"}
+              </span>
+              <span class="drawer-metric-sub">${match.country}</span>
+            </div>
+          `;
+
+          const escapedCountry = countryName.replace(/'/g, "\\'");
+          const escapedDiv = divName.replace(/'/g, "\\'");
+          footerEl.innerHTML = `
+            <button class="btn-drawer-action primary" onclick="zoomToDivision('${escapedCountry}', '${escapedDiv}')">🔍 Enfocar División</button>
+            <button class="btn-drawer-action secondary" onclick="showCountryOverviewInDrawer('${escapedCountry}')">← Ver todas</button>
+            <button class="btn-drawer-action secondary" onclick="closeMobileDrawer()">✕</button>
+          `;
+        } else {
+          bodyEl.innerHTML = `<p style="color:var(--on-dark-muted); font-size:12px;">Sin desglose estadístico detallado para esta división.</p>`;
+          footerEl.innerHTML = `<button class="btn-drawer-action secondary" onclick="closeMobileDrawer()">✕ Cerrar</button>`;
+        }
+      } else {
+        const cName = d.properties.name;
+        const meta = level0Data.find(item => cleanString(item.name) === cleanString(cName));
+
+        badgeEl.textContent = `País · ${meta ? meta.continent : "Global"}`;
+        titleEl.textContent = cName;
+
+        if (meta) {
+          bodyEl.innerHTML = `
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">Población</span>
+              <span class="drawer-metric-val">${formatNumber(meta.population)}</span>
+            </div>
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">PBI Nominal</span>
+              <span class="drawer-metric-val">${formatUSD(meta.gdpUSD)}</span>
+            </div>
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">PBI Per Cápita</span>
+              <span class="drawer-metric-val">$${formatNumber(meta.gdpPerCapita)}</span>
+            </div>
+            <div class="drawer-metric-card">
+              <span class="drawer-metric-label">Apertura Nivel 1</span>
+              <span class="drawer-metric-val ${meta.hasLevel1 ? "is-good" : "is-muted"}" style="font-size:11px;">
+                ${meta.hasLevel1 ? "✓ Disponible" : "Nivel 0"}
+              </span>
+            </div>
+          `;
+
+          const escapedName = meta.name.replace(/'/g, "\\'");
+          if (meta.hasLevel1) {
+            footerEl.innerHTML = `
+              <button class="btn-drawer-action primary" onclick="selectAndFocusCountry('${escapedName}'); closeMobileDrawer();">Explorar Nivel 1 →</button>
+              <button class="btn-drawer-action secondary" onclick="zoomToSelection()">Centrar</button>
+              <button class="btn-drawer-action secondary" onclick="closeMobileDrawer()">✕ Cerrar</button>
+            `;
+          } else {
+            footerEl.innerHTML = `
+              <button class="btn-drawer-action primary" onclick="zoomToSelection()">Centrar País</button>
+              <button class="btn-drawer-action secondary" onclick="closeMobileDrawer()">✕ Cerrar</button>
+            `;
+          }
+        } else {
+          bodyEl.innerHTML = `<p style="color:var(--on-dark-muted); font-size:12px;">Sin datos estadísticos registrados.</p>`;
+          footerEl.innerHTML = `<button class="btn-drawer-action secondary" onclick="closeMobileDrawer()">✕ Cerrar</button>`;
+        }
+      }
+
+      drawer.classList.add("is-open");
+      drawer.setAttribute("aria-hidden", "false");
+    }
+
+    function showCountryOverviewInDrawer(countryName) {
+      const drawer = document.getElementById("mobile-detail-drawer");
+      if (!drawer) return;
+
+      const badgeEl = document.getElementById("drawer-badge");
+      const titleEl = document.getElementById("drawer-title");
+      const bodyEl = document.getElementById("drawer-body");
+      const footerEl = document.getElementById("drawer-footer");
+
+      const countryDivs = level1Data.filter(r => cleanString(r.country) === cleanString(countryName));
+      const countryMeta = level0Data.find(r => cleanString(r.name) === cleanString(countryName));
+
+      const totalPop = countryDivs.length ? countryDivs.reduce((a, b) => a + b.population, 0) : (countryMeta ? countryMeta.population : 0);
+      const totalGDP = countryDivs.length ? countryDivs.reduce((a, b) => a + b.gdpUSD, 0) : (countryMeta ? countryMeta.gdpUSD : 0);
+      const avgGDPpc = totalPop > 0 ? Math.round(totalGDP / totalPop) : (countryMeta ? countryMeta.gdpPerCapita : 0);
+
+      badgeEl.textContent = `Apertura Nivel 1 · ${countryDivs.length} Divisiones`;
+      titleEl.textContent = countryName;
+
+      let kpisHtml = `
+        <div class="drawer-metric-card">
+          <span class="drawer-metric-label">Población</span>
+          <span class="drawer-metric-val">${formatNumber(totalPop)}</span>
+        </div>
+        <div class="drawer-metric-card">
+          <span class="drawer-metric-label">PBI Nominal</span>
+          <span class="drawer-metric-val">${formatUSD(totalGDP)}</span>
+        </div>
+        <div class="drawer-metric-card">
+          <span class="drawer-metric-label">PBI Per Cápita</span>
+          <span class="drawer-metric-val">$${formatNumber(avgGDPpc)}</span>
+        </div>
+        <div class="drawer-metric-card">
+          <span class="drawer-metric-label">Divisiones N1</span>
+          <span class="drawer-metric-val" style="color:var(--accent-active); font-size:12px;">${countryDivs.length} Regiones</span>
+        </div>
+      `;
+
+      const sortedDivs = [...countryDivs].sort((a, b) => b[activeMetric] - a[activeMetric]);
+      let listHtml = `
+        <div class="drawer-section-title" style="grid-column: 1 / -1;">
+          <span>Divisiones Nivel 1 (${sortedDivs.length})</span>
+          <span style="font-size:9px; color:var(--on-dark-muted); text-transform:none;">Toca para ver detalle</span>
+        </div>
+        <div class="drawer-divisions-scroll" style="grid-column: 1 / -1;">
+      `;
+
+      sortedDivs.forEach(d => {
+        const escapedCountry = d.country.replace(/'/g, "\\'");
+        const escapedDiv = d.divisionName.replace(/'/g, "\\'");
+        listHtml += `
+          <div class="drawer-division-chip" onclick="zoomToDivision('${escapedCountry}', '${escapedDiv}'); showDivisionDetailByName('${escapedCountry}', '${escapedDiv}');">
+            <div class="div-chip-left">
+              <span class="div-chip-name">${d.divisionName}</span>
+              <span class="div-chip-type">${d.divisionType}</span>
+            </div>
+            <div class="div-chip-right">
+              ${formatCompact(d[activeMetric] || 0, activeMetric)}
+            </div>
+          </div>
+        `;
+      });
+      listHtml += `</div>`;
+
+      bodyEl.innerHTML = kpisHtml + listHtml;
+
+      footerEl.innerHTML = `
+        <button class="btn-drawer-action primary" onclick="zoomToSelection()">⟲ Centrar País</button>
+        <button class="btn-drawer-action secondary" onclick="closeMobileDrawer()">✕ Cerrar</button>
+      `;
+
+      drawer.classList.add("is-open");
+      drawer.setAttribute("aria-hidden", "false");
+    }
+
+    function showDivisionDetailByName(countryName, divisionName) {
+      activeDivisionName = divisionName;
+      const feat = worldLvl1Geo.features.find(f => 
+        f.properties.isLevel1 && 
+        cleanString(f.properties.country) === cleanString(countryName) && 
+        cleanString(f.properties.name) === cleanString(divisionName)
+      );
+      if (feat) {
+        showMobileDrawer(feat);
+      }
+      renderDivisionLabels(svg ? d3.zoomTransform(svg.node()) : null);
+    }
+
+    document.addEventListener("pointerdown", (e) => {
+      if (!e.target.closest("#map-viewport") && !e.target.closest("#mobile-detail-drawer")) {
+        hideTooltip();
+      }
+    });
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (isMobileOrTouch()) {
+          hideTooltip();
+        } else {
+          closeMobileDrawer();
+        }
+      }, 200);
+    });
+
     function resetMapZoom() {
+      activeDivisionName = null;
+      hideTooltip();
+      closeMobileDrawer();
       let selectionCleared = false;
       if (selectedCountries.length > 0) {
         selectedCountries = [];
@@ -1594,16 +2334,14 @@
       const x = (bounds[0][0] + bounds[1][0]) / 2;
       const y = (bounds[0][1] + bounds[1][1]) / 2;
 
-      const container = document.getElementById("map-viewport");
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      const scale = Math.max(1, Math.min(22, 0.78 / Math.max(dx / w, dy / h)));
-      const translate = [w / 2 - scale * x, h / 2 - scale * y];
+      const scale = Math.max(1, Math.min(22, 0.78 / Math.max(dx / MAP_WIDTH, dy / MAP_HEIGHT)));
+      const translate = [MAP_WIDTH / 2 - scale * x, MAP_HEIGHT / 2 - scale * y];
 
       svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
     }
 
     function zoomToDivision(countryName, divisionName) {
+      activeDivisionName = divisionName;
       const feats = worldLvl1Geo.features.filter(f => 
         cleanString(f.properties.country) === cleanString(countryName) && 
         cleanString(f.properties.name) === cleanString(divisionName)
@@ -1616,13 +2354,11 @@
       const x = (bounds[0][0] + bounds[1][0]) / 2;
       const y = (bounds[0][1] + bounds[1][1]) / 2;
 
-      const container = document.getElementById("map-viewport");
-      const w = container.clientWidth;
-      const h = container.clientHeight;
-      const scale = Math.max(1, Math.min(30, 0.75 / Math.max(dx / w, dy / h)));
-      const translate = [w / 2 - scale * x, h / 2 - scale * y];
+      const scale = Math.max(1, Math.min(30, 0.75 / Math.max(dx / MAP_WIDTH, dy / MAP_HEIGHT)));
+      const translate = [MAP_WIDTH / 2 - scale * x, MAP_HEIGHT / 2 - scale * y];
 
       svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+      renderDivisionLabels({ k: scale });
     }
 
     /* ==============================================================
@@ -1753,11 +2489,12 @@
 
     
     function selectAndFocusCountry(countryName) {
-      if(!selectedCountries.includes(countryName)) {
-        selectedCountries.push(countryName);
-      }
+      selectedCountries = [countryName];
       switchLevel(1);
       onSelectionChanged();
+      if (isMobileOrTouch()) {
+        showCountryOverviewInDrawer(countryName);
+      }
     }
 
   </script>
